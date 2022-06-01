@@ -1,0 +1,75 @@
+﻿@model IEnumerable<CarRepairService.Web.Models.UserVM>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2 class="text-center">Aktif Kullanıcı Listesi</h2>
+
+<p>
+    <a asp-action="CreateUser" class="btn btn-success">Yeni Kullanıcı Oluştur</a>
+</p>
+<table class="table table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rol)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.carID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Aktif)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.fullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Username)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rol)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.carID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Aktif)
+                </td>
+                <td>
+                    @Html.ActionLink("Güncelle","UserUpdate",null, new { id = item.ID }, new{@class="btn btn-primary"}) -
+                    @Html.ActionLink("Detay", "UserDetails", null, new { id = item.ID }, new{@class="btn btn-info"}) -
+                    @if (item.isActive != false)
+                    {
+                        @Html.ActionLink("Sil", "UserDelete", null, new { id = item.ID }, new{@class="btn btn-danger"})
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

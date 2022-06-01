@@ -1,0 +1,87 @@
+﻿@model CarRepairService.Web.Models.CarVM
+
+@{
+    ViewData["Title"] = "ActiveCarIndex";
+}
+
+<h3 class="text-center">Aktif Araçların Listesi</h3>
+
+
+<p>
+    <a asp-action="CreateCar" class="btn btn-success">Yeni Araba Ekle</a>
+</p>
+<table class="table table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Car.carBrand)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Car.modelYear)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Car.lastMaintenanceDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Car.FuelType.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Car.TransmissionType.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Car.User.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Car.isDeleted)
+            </th>
+            <th colspan="3"></th>
+        </tr>
+    </thead>
+    <tbody class="table-light">
+        @foreach (var item in Model.carList)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.carBrand)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.modelYear)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.lastMaintenanceDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FuelType.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TransmissionType.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.FullName)
+                </td>
+                <td>
+                    @if (item.isDeleted == true)
+                    {
+                        <span>Evet</span>
+                    }
+                    else
+                    {
+                        <span>Hayır</span>
+                    }
+                </td>
+                <td>
+                    @Html.ActionLink("Güncelle", "CarUpdate",null, new { id = item.ID }, new{@class="btn btn-info"})
+                </td>
+                <td>
+                    @Html.ActionLink("Detay", "CarDetails",null, new { id = item.ID},new {@class="btn btn-warning"})
+                </td>
+                <td>
+                    @if (item.isDeleted != true)
+                    {
+                        @Html.ActionLink("Sil", "CarDelete",null, new { id = item.ID },new {@class="btn btn-danger"})
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

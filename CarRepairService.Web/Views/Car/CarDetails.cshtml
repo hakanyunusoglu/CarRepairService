@@ -1,0 +1,81 @@
+﻿@using Microsoft.AspNetCore.Http
+@model CarRepairService.Web.Models.CarVM
+
+@{
+    ViewData["Title"] = "CarDetails";
+    int Role = 0;
+    if (Context.Session.GetInt32("userRole") != null)
+    {
+        Role = Context.Session.GetInt32("userRole").Value;
+    }
+}
+<h3 class="text-center">Araç Detayları</h3>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            <img src="~/img/@Model.Car.carImage" alt="Araç Resmi" style="width:150px;height:200px;" />
+        </dt>
+        <dd class="col-sm-10">
+
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Car.carBrand)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Car.carBrand)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Car.modelYear)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Car.modelYear)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Car.lastMaintenanceDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Car.lastMaintenanceDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Car.FuelType.Type)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Car.FuelType.Type)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Car.TransmissionType.Type)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Car.TransmissionType.Type)
+        </dd>
+          <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Car.User)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Car.User.FullName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Car.isDeleted)
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.Car.isDeleted == true)
+            {
+                <span>Evet</span>
+            }
+            else
+            {
+                <span>Hayır</span>
+            }
+        </dd>
+    </dl>
+</div>
+<div>
+    @if (Role == 3)
+    {
+        @Html.ActionLink("Düzenle", "CarUpdate",null, new { id = Model.Car.ID}, new{@class="btn btn-info"})
+        
+    }
+   &nbsp; <a asp-action="IndexUserView" class="btn btn-primary">Listeye Dön</a>
+</div>

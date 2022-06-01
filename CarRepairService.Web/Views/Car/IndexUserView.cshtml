@@ -1,0 +1,56 @@
+﻿@model CarRepairService.Web.Models.CarVM
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/css/productList.css" rel="stylesheet" />
+@if (ViewBag.NotLogged != "notLogged")
+{
+    <div class="container mt-5 mb-5">
+        <div class="d-flex justify-content-center row">
+            <div class="col-md-10">
+                @foreach (var item in Model.carList)
+                {
+                    <div class="row p-2 bg-white border rounded">
+                        <div class="col-md-3 mt-1"><a href="/Car/CarDetails/@item.ID" class="text-decoration-none text-dark"><img class="img-fluid img-responsive rounded product-image" src="~/img/@item.carImage" style="width:150px;height:100px;"></a></div>
+                        <div class="col-md-6 mt-1">
+                            <h5>@item.FuelType.Type</h5>
+                            <div class="d-flex flex-row">
+                                <div class="ratings mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div>
+                            </div>
+                            <p class="text-justify text-truncate para mb-0">@item.TransmissionType.Type<br><br></p>
+                        </div>
+                        <div class="align-items-center align-content-center col-md-3 border-left mt-1">
+                            <div class="d-flex flex-row align-items-center">
+                                <h4 class="mr-1">@item.carBrand</h4>
+                            </div>
+                            <h6 class="text-success">@item.modelYear</h6>
+                            <div class="d-flex flex-column mt-2">
+                                <a class="btn btn-primary btn-sm" href="/Car/CarDetails/@item.ID">Detay</a>
+                                @*@if (ViewBag.Username != null)
+                                    {*@
+                                <form asp-controller="Car" asp-action="CarAppointment" method="post">
+                                    <input type="hidden" name="ID" value="@item.ID" style="width:0px;height:0px;" id="ID" />
+                                    <a class="btn btn-warning btn-sm" href="#">Randevu Al</a>
+                                </form>
+                                @*}*@
+                            </div>
+
+                        </div>
+                    </div>
+                    <br />
+                }
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <table class="table table-warning">
+        <thead class="text-center">
+            <tr>
+                <td><span>KAYITLI ARABANIZ BULUNMAMAKTADIR! GİRİŞ YAPMADIYSANIZ GİRİŞ YAPIP TEKRAR DENEYİNİZ!</span></td>
+            </tr>
+        </thead>
+    </table>
+}

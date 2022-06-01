@@ -1,0 +1,118 @@
+﻿@model CarRepairService.Web.Models.AppointmentVM
+
+@{
+    ViewData["Title"] = "AppointmentList";
+}
+
+<h3 class="text-center">Aktif Randevu Listesi</h3>
+
+
+<p>
+    <a asp-action="CreateAppointment" class="btn btn-success">Yeni Randevu Oluştur</a> -  <a asp-action="AllAppointmentList" class="btn btn-primary">Tüm Randevularım</a>
+</p>
+@if (ViewBag.CheckUser != "empty")
+{
+    <table class="table table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Appointment.Car.carBrand)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Appointment.Car.modelYear)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Appointment.Car.FuelType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Appointment.Car.TransmissionType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Appointment.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Appointment.StartDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Appointment.EndDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Appointment.User)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Appointment.Technician)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Appointment.isActive)
+                </th>
+                <th colspan="3"></th>
+            </tr>
+        </thead>
+        <tbody class="table-light">
+            @foreach (var item in Model.appointmentList)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Car.carBrand)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Car.modelYear)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Car.FuelType.Type)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Car.TransmissionType.Type)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.FullName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Technician)
+                    </td>
+                    <td>
+                        @if (item.isActive == true)
+                        {
+                            <span>Aktif</span>
+                        }
+                        else
+                        {
+                            <span>Pasif</span>
+                        }
+                    </td>
+                    <td>
+                        @Html.ActionLink("Güncelle", "UpdateAppointment",null, new { id = item.ID }, new{@class="btn btn-info"})
+                    </td>
+                    <td>
+                        @Html.ActionLink("Detay", "AppointmentDetails",null, new { id = item.ID},new {@class="btn btn-warning"})
+                    </td>
+                    <td>
+                        @if (item.isActive != false)
+                        {
+                            @Html.ActionLink("Sil", "DeleteAppointment",null, new { id = item.ID },new {@class="btn btn-danger"})
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <table class="table table-warning">
+        <thead class="text-center">
+            <tr>
+                <td><span>KAYITLI RANDEVUNUZ BULUNMAMAKTADIR!</span></td>
+            </tr>
+        </thead>
+    </table>
+}

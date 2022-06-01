@@ -1,0 +1,67 @@
+﻿@model CarRepairService.Web.Models.CarVM
+
+@{
+    ViewData["Title"] = "CarUpdate";
+}
+
+<h3 class="text-center">Araba Bilgilerini Güncelle</h3>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CarUpdate">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group d-none">
+                <label asp-for="Car.ID" class="control-label"></label>
+                <input asp-for="Car.ID" class="form-control" />
+                <span asp-validation-for="Car.ID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Car.carBrand" class="control-label"></label>
+                <input asp-for="Car.carBrand" class="form-control" />
+                <span asp-validation-for="Car.carBrand" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Car.modelYear" class="control-label"></label>
+                <input asp-for="Car.modelYear" class="form-control" />
+                <span asp-validation-for="Car.modelYear" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Car.lastMaintenanceDate" class="control-label"></label>
+                <input asp-for="Car.lastMaintenanceDate" class="form-control" />
+                <span asp-validation-for="Car.lastMaintenanceDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Car.FuelType" class="control-label"></label>
+                 <select class="form-control" asp-for="Car.fuelTypeID" asp-items="@(new SelectList(Model.fuelTypeList,"ID","Type"))"></select>
+ 
+                <span asp-validation-for="Car.fuelTypeID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Car.TransmissionType" class="control-label"></label>
+                <select class="form-control" asp-for="Car.transmissionTypeID" asp-items="@(new SelectList(Model.transmissionTypeList,"ID","Type"))"></select>
+                <span asp-validation-for="Car.transmissionTypeID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Car.User" class="control-label"></label>
+                <select class="form-control" asp-for="Car.userID" asp-items="@(new SelectList(Model.userList,"ID","FullName"))"></select>
+                <span asp-validation-for="Car.userID" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Car.isDeleted" /> @Html.DisplayNameFor(model => model.Car.isDeleted)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Güncelle" class="btn btn-warning" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="ActiveCarIndex" class="btn btn-primary">Listeye Dön</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
